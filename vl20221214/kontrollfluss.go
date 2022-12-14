@@ -5,42 +5,85 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 // Liefert das Doppelte von n.
 func double(n int) int {
 	// TODO: Hier das Ergebnis berechnen.
-	return 0
+	//return 0
+	return 2 * n
 }
 
 // Liefert die Summe der Zahlen von 1 bis n.
 func sum(n int) int {
 	// TODO: Hier das Ergebnis berechnen.
-	return 0
+	//return 0
+	sum := 0
+	for i := 1; i <= n; i++ {
+		sum += i
+	}
+	return sum
 }
 
 // Liefert die Summe aller Vielfachen von x, die kleiner als n sind.
 func sumMultiples(x, n int) int {
 	result := 0
 	// TODO: Hier das Ergebnis berechnen.
+	for i := x; i < n; i += x {
+		result += i
+	}
 	return result
 }
 
 // Liefert genau dann true, wenn n eine Primzahl ist.
 func isPrime(n int) bool {
 	// TODO: Das pauschale Return durch etwas sinnvolles ersetzen.
+	if n < 2 {
+		return false
+	}
+	sq_root := int(math.Sqrt(float64(n)))
+	for i := 2; i <= sq_root; i++ {
+		if n%i == 0 {
+			return false
+		}
+	}
 	return true
 }
 
 // Liefert den größten Primfaktor der Zahl n.
 func largestPrimeFactor(n int) int {
 	// TODO: Hier das Ergebnis berechnen.
-	return 0
+	//return 0
+	if n < 2 {
+		return 0
+	}
+	lpf := 0
+	for n%2 == 0 {
+		lpf = 2
+		n = n / 2
+	}
+	for i := 3; i*i <= n; i = i + 2 {
+		for n%i == 0 {
+			lpf = i
+			n = n / i
+		}
+	}
+	if n > 2 {
+		lpf = n
+	}
+	return lpf
 }
 
 // Liefert das kleinste gemeinsame Vielfache von m und n.
 func lcm(m, n int) int {
 	// TODO: Hier das Ergebnis berechnen.
+	//return 0
+	for i := 2; i <= n*m; i++ {
+		if i%n == 0 && i%m == 0 {
+			return i
+		}
+	}
 	return 0
 }
 
