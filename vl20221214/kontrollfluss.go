@@ -22,6 +22,7 @@ func sum(n int) int {
 	sum := 0
 	for i := 1; i <= n; i++ {
 		sum += i
+		return sum
 	}
 	return sum
 }
@@ -101,5 +102,5 @@ func binrep(n int) string {
 // Rufen Sie hier Ihre Funktionen auf, die Sie testen möchten
 func main() {
 	//fmt.Println(lcm(25, 10)) // Erwarte:   50
-	fmt.Println(binrep(9000))
+	fmt.Println(sum(5))
 }
