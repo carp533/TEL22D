@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	//"reflect"
 )
 
@@ -16,7 +17,27 @@ import (
  */
 func readSum() int {
 	// TODO
-	return 0
+	var input string
+	//var intVar int = -1
+	var sum int
+
+	for {
+		fmt.Print("Bitte geben Sie eine Zahl ein:")
+		fmt.Scanln(&input)
+		intVar, err := strconv.Atoi(input)
+		//fmt.Println(intVar, err, reflect.TypeOf(intVar))
+		if err != nil {
+			fmt.Println(input, "ist keine Zahl!")
+			continue
+		} else {
+			fmt.Println("Sie haben ", intVar, "eingeben...")
+		}
+		sum += intVar
+		if intVar == 0 {
+			fmt.Println("Summe aller Zahlen: ", sum)
+			return sum
+		}
+	}
 }
 
 /* Aufgabe 2:
@@ -45,8 +66,9 @@ func main() {
 	fmt.Printf("Sie haben %v eingegeben.\n", input)
 
 	// Hier wird die Funktion readSum() aufgerufen.
-	readSum()
+	//readSum()
 
 	// Hier wird die Funktion readFives() aufgerufen.
-	readFives()
+	//readFives()
+
 }

@@ -6,6 +6,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"strconv"
 )
 
 // Liefert das Doppelte von n.
@@ -22,7 +23,6 @@ func sum(n int) int {
 	sum := 0
 	for i := 1; i <= n; i++ {
 		sum += i
-		return sum
 	}
 	return sum
 }
@@ -94,8 +94,15 @@ func lcm(m, n int) int {
 // Beispiel f(5) = 101
 // Beispiel f(50) = 110010
 // Beispiel f(9000) = 10001100101000
+// strconv.Itoa wandelt eine Zahl in einen String
+// s1 + s2 ist die Verkettung von zwei String Variablen
 func binrep(n int) string {
-	return fmt.Sprintf("%b\n", n)
+	var s string = ""
+	for n > 0 {
+		s = strconv.Itoa(n%2) + s
+		n = n / 2
+	}
+	return s
 }
 
 // Main-Funktion
@@ -103,4 +110,5 @@ func binrep(n int) string {
 func main() {
 	//fmt.Println(lcm(25, 10)) // Erwarte:   50
 	fmt.Println(sum(5))
+	fmt.Println(binrep(50))
 }

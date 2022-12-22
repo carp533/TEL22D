@@ -123,3 +123,25 @@ func TestLcm(t *testing.T) {
 		})
 	}
 }
+
+func TestBinrep(t *testing.T) {
+	var tests = []struct {
+		a    int
+		want string
+	}{
+		{5, "101"},
+		{50, "110010"},
+		{9000, "10001100101000"},
+	}
+
+	for _, tt := range tests {
+
+		testname := fmt.Sprintf("%d", tt.a)
+		t.Run(testname, func(t *testing.T) {
+			ans := binrep(tt.a)
+			if ans != tt.want {
+				t.Errorf("got %s, want %s", ans, tt.want)
+			}
+		})
+	}
+}
