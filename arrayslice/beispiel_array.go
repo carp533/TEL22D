@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main() {
+func Beispeilarry() {
 
 	//definiert einen array der Länge 5 vom Typ int
 	var a [5]int

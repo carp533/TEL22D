@@ -1,5 +1,11 @@
 package main
 
+import (
+	"fmt"
+
+	"github.com/carp533/TEL22D/filter"
+)
+
 func swap(a []int, i, k int) {
 	//h := a[i]
 	//a[i] = a[k]
@@ -33,4 +39,13 @@ func bubbleSort(a []int) {
 	//			}
 	//		}
 	//	}
+}
+
+func main() {
+
+	l1 := []int{10, 3, 17, 5, 23, 12}
+	bubbleSort(l1)
+	fmt.Println(l1)
+	lesser := filter.FilterLess(l1, 11)
+	fmt.Println(lesser)
 }

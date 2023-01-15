@@ -2,12 +2,14 @@ package main
 
 import "fmt"
 
-func main() {
+func BeispielSlice() {
 
 	//slices sind eine Referenz auf ein Array
 	// Eingebaute Funktion make um ein slice zu erzeugen
 	s := make([]string, 3)
 	fmt.Println("emp:", s)
+	fmt.Println("len:", len(s))
+	fmt.Println("cap:", cap(s))
 
 	s[0] = "a"
 	s[1] = "b"
@@ -16,11 +18,15 @@ func main() {
 	fmt.Println("get:", s[2])
 
 	fmt.Println("len:", len(s))
+	fmt.Println("cap:", cap(s))
 
 	//Eingebaute Funktion append um ein Element zu einem sclice hinzuzufügen
 	s = append(s, "d")
 	s = append(s, "e", "f")
+	s = append(s, "g", "h")
 	fmt.Println("apd:", s)
+	fmt.Println("len:", len(s))
+	fmt.Println("cap:", cap(s))
 
 	//Eingabute Funktion copy um einen sclice zu kopieren
 	c := make([]string, len(s))
