@@ -5,6 +5,16 @@ import (
 	"strings"
 )
 
+func main() {
+	ExampleCommonMultiples()
+	ExampleArraySums()
+	ExamplePower2()
+	ExampleFindAll()
+	ExampleDictionary_SetEntry()
+	ExampleEntry_Translations()
+	ExampleDiv()
+}
+
 /* AUFGABE: Listen
  * Erreichbare Punkte: 10
  */
@@ -14,8 +24,23 @@ import (
 // gemeinsamen Vielfachen von m und n, die nicht größer als max sind.
 func CommonMultiples(m, n, max int) []int {
 	result := []int{}
+	for i := 1; i <= max; i++ {
+		if i%n == 0 && i%m == 0 {
+			result = append(result, i)
+		}
+	}
 	// TODO
 	return result
+}
+func ExampleCommonMultiples() {
+	fmt.Println(CommonMultiples(3, 5, 50))
+	fmt.Println(CommonMultiples(2, 10, 100))
+	fmt.Println(CommonMultiples(1, 1, 10))
+
+	// Output:
+	// [15 30 45]
+	// [10 20 30 40 50 60 70 80 90 100]
+	// [1 2 3 4 5 6 7 8 9 10]
 }
 
 /* AUFGABE: Listen
@@ -28,8 +53,26 @@ func CommonMultiples(m, n, max int) []int {
 // der Elemente aus list bis zu Stelle n enthält.
 func ArraySums(list []int) []int {
 	result := []int{}
+	sum := 0
+	for _, val := range list {
+		sum += val
+		result = append(result, sum)
+	}
 	// TODO
 	return result
+}
+
+func ExampleArraySums() {
+	fmt.Println(ArraySums([]int{1, 3, 5, 7}))
+	fmt.Println(ArraySums([]int{1, 1, 2, 80}))
+	fmt.Println(ArraySums([]int{7, 3, 1, 2}))
+	fmt.Println(ArraySums([]int{3, 3, 0, 2}))
+
+	// Output:
+	// [1 4 9 16]
+	// [1 2 4 84]
+	// [7 10 11 13]
+	// [3 6 6 8]
 }
 
 /* AUFGABE: Rekursion
@@ -41,7 +84,27 @@ func ArraySums(list []int) []int {
 // Zusatzanforderung: Die Funktion muss rekursiv sein.
 func Power2(x int) float64 {
 	// TODO
-	return 0
+	if x == 0 {
+		return 1
+	}
+	if x < 0 {
+		x *= -1
+		return 1 / (2 * Power2(x-1))
+	}
+	return 2 * Power2(x-1)
+}
+func ExamplePower2() {
+
+	fmt.Println(Power2(2))
+	fmt.Println(Power2(5))
+	fmt.Println(Power2(0))
+	fmt.Println(Power2(-2))
+
+	// Output:
+	// 4
+	// 32
+	// 1
+	// 0.25
 }
 
 /* AUFGABE: Listen
@@ -54,7 +117,25 @@ func Power2(x int) float64 {
 func FindAll(list []int, x int) []int {
 	result := []int{}
 	// TODO
+	for idx, val := range list {
+		if val == x {
+			result = append(result, idx)
+		}
+	}
 	return result
+}
+func ExampleFindAll() {
+	l1 := []int{1, 4, 17, 2, 1, 5, 10, 5, 2}
+	fmt.Println(FindAll(l1, 1))
+	fmt.Println(FindAll(l1, 4))
+	fmt.Println(FindAll(l1, 5))
+	fmt.Println(FindAll(l1, 42))
+
+	// Output:
+	// [0 4]
+	// [1]
+	// [5 7]
+	// []
 }
 
 /* AUFGABE: Structs
@@ -70,6 +151,12 @@ func FindAll(list []int, x int) []int {
 // Falls dict schon einen Eintrag für de enthält,
 // soll dessen en ersetzt werden.
 func (dict *Dictionary) SetEntry(de, en string) {
+	for i, entry := range dict.Entries {
+		if entry.De == de {
+			dict.Entries[i] = Entry{de, en}
+			return
+		}
+	}
 	dict.Entries = append(dict.Entries, Entry{de, en})
 }
 
@@ -131,12 +218,12 @@ func ExampleDictionary_SetEntry() {
 // Datentyp für Einträge eines Wörterbuchs.
 type Eintrag struct {
 	De string
-	En string
+	En []string
 }
 
 // Liefert einen neuen Eintrag.
-func NewEntry(de, en string) Entry {
-	return Entry{de, en}
+func NewEntry(de string, en []string) Eintrag {
+	return Eintrag{De: de, En: en}
 }
 
 // Liefert eine String-Repräsentation eines Eintrags.
@@ -146,13 +233,25 @@ func (entry Eintrag) String() string {
 
 // Liefert einen String mit allen englischen Wörtern aus entry.
 // Die einzelnen Wörter sollen mit Kommata getrennt sein.
-func (entry Eintrag) Translations() string {
+func (entry Eintrag) Translations() []string {
 	return entry.En
 }
 
 // Fügt eine neue Übersetzung zu entry hinzu.
 func (entry *Eintrag) AddTranslation(newEn string) {
-	entry.En = newEn
+	entry.En = append(entry.En, newEn)
+}
+
+func ExampleEntry_Translations() {
+	e1 := NewEntry("Himmel", []string{"sky"})
+	fmt.Println(e1)
+
+	e1.AddTranslation("heaven")
+	fmt.Println(e1)
+
+	// Output:
+	// Himmel : sky
+	// Himmel : sky,heaven
 }
 
 /* AUFGABE: Rekursion
@@ -167,7 +266,33 @@ func (entry *Eintrag) AddTranslation(newEn string) {
 // Berechnet den ganzzahligen Quotienten x / y.
 // D.h. die Funktion ignoriert Nachkommastellen bzw. den Rest.
 func Div(x, y int) int {
+	if x < 0 {
+		return -Div(-x, y)
+	}
+	if y < 0 {
+		return -Div(x, -y)
+	}
+	if x < y {
+		return 0
+	}
 	return 1 + Div(x-y, y)
+}
+func ExampleDiv() {
+
+	fmt.Println(Div(3, 2))
+	fmt.Println(Div(2, 3))
+	fmt.Println(Div(20, 2))
+	fmt.Println(Div(-3, 2))
+	fmt.Println(Div(3, -2))
+	fmt.Println(Div(-3, -2))
+
+	// Output:
+	// 1
+	// 0
+	// 10
+	// -1
+	// -1
+	// 1
 }
 
 /* AUFGABE: Schere-Stein-Papier
